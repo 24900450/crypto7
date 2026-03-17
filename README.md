@@ -23,15 +23,20 @@ void xorCrypt(char *in, char *key, char *out, int len)
 int main() 
 {
   char msg[100], key[100], enc[100], dec[100];
-  printf("Enter message: "); fgets(msg, 100, stdin);
+  printf("Enter message: ");
+  fgets(msg, 100, stdin);
   msg[strcspn(msg, "\n")] = 0;
-  printf("Enter key: "); fgets(key, 100, stdin);
+  printf("Enter key: ");
+  fgets(key, 100, stdin);
   key[strcspn(key, "\n")] = 0;
 
   int len = strlen(msg);
   xorCrypt(msg, key, enc, len);
   printf("Encrypted: ");
-  for (int i = 0; i < len; i++) printf("%02X ", (unsigned char)enc[i]);
+  for (int i = 0; i < len; i++)
+  {
+    printf("%02X ", (unsigned char)enc[i]);
+  }
   printf("\n");
 
   xorCrypt(enc, key, dec, len);
