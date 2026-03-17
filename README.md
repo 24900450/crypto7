@@ -15,40 +15,52 @@ To use the Data Encryption Standard (DES) algorithm for a practical application,
 ```c
 #include <stdio.h>
 #include <string.h>
-void xorCrypt(char *in, char *key, char *out, int len)
-{
-  for (int i = 0; i < len; i++) out[i] = in[i] ^ key[i % strlen(key)];
-  out[len] = 0;
-}
-int main() 
-{
-  char msg[100], key[100], enc[100], dec[100];
-  printf("Enter message: ");
-  fgets(msg, 100, stdin);
-  msg[strcspn(msg, "\n")] = 0;
-  printf("Enter key: ");
-  fgets(key, 100, stdin);
-  key[strcspn(key, "\n")] = 0;
 
-  int len = strlen(msg);
-  xorCrypt(msg, key, enc, len);
-  printf("Encrypted: ");
-  for (int i = 0; i < len; i++)
-  {
-    printf("%02X ", (unsigned char)enc[i]);
-  }
-  printf("\n");
+int main()
+{
+    char msg[100], key[100], enc[100], dec[100];
+    int i, len, keylen;
 
-  xorCrypt(enc, key, dec, len);
-  printf("Decrypted: %s\n", dec);
-  return 0;
+    printf("Enter message: ");
+    scanf("%s", msg);
+
+    printf("Enter key: ");
+    scanf("%s", key);
+
+    len = strlen(msg);
+    keylen = strlen(key);
+
+    // Encryption
+    for(i = 0; i < len; i++)
+    {
+        enc[i] = msg[i] ^ key[i % keylen];
+    }
+    enc[len] = '\0';
+
+    printf("Encrypted: ");
+    for(i = 0; i < len; i++)
+    {
+        printf("%02X ", (unsigned char)enc[i]);
+    }
+    printf("\n");
+
+    // Decryption
+    for(i = 0; i < len; i++)
+    {
+        dec[i] = enc[i] ^ key[i % keylen];
+    }
+    dec[len] = '\0';
+
+    printf("Decrypted: %s\n", dec);
+
+    return 0;
 }
 ```
 
 
 
 ## Output:
-<img width="805" height="132" alt="image" src="https://github.com/user-attachments/assets/063e0226-b0ed-465d-9197-647fc0e93c7a" />
+<img width="431" height="259" alt="image" src="https://github.com/user-attachments/assets/eb7f5096-9378-4979-bb2d-2c232ef29bdb" />
 
 ## Result:
   The program is executed successfully
